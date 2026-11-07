@@ -89,13 +89,13 @@ p{margin:0}
 .tile.pre{opacity:0;transform:translateY(22px)}
 
 /* 3D hover */
-.tile{--mx:0;--my:0}
+.tile{--tx:0;--ty:0}
 .tile.tilt{will-change:transform}
-.tile.tilting{z-index:2;transition:transform .12s linear,box-shadow .2s ease-out;box-shadow:calc(var(--mx) * -16px) calc(var(--my) * -16px + 26px) 48px -22px var(--shadow-c)}
+.tile.tilting{z-index:2;transition:transform .12s linear,box-shadow .2s ease-out;box-shadow:calc(var(--tx) * -16px) calc(var(--ty) * -16px + 26px) 48px -22px var(--shadow-c)}
 .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:3;opacity:0;transition:opacity .4s var(--ease);background:radial-gradient(520px circle at var(--gx,50%) var(--gy,50%),color-mix(in srgb,var(--accent) 13%,transparent),transparent 45%)}
 .tile.feat .glare,.tile.accent .glare,.tile.sun .glare{background:radial-gradient(520px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.24),transparent 45%)}
 .tile.tilting .glare{opacity:1}
-.co .stage img,.sc-stage,.t-stat b,.t-hero h1,.t-cta h2,.t-shared h3,.co h3,.t-flow .m .plate,.t-flow .m .ico,.f-brand .brand .plate,.sc-top .plate{translate:calc(var(--mx) * var(--d,6px)) calc(var(--my) * var(--d,6px));transition:translate .5s var(--ease)}
+.co .stage img,.sc-stage,.t-stat b,.t-hero h1,.t-cta h2,.t-shared h3,.co h3,.t-flow .m .plate,.t-flow .m .ico,.f-brand .brand .plate,.sc-top .plate{translate:calc(var(--tx) * var(--d,6px)) calc(var(--ty) * var(--d,6px));transition:translate .5s var(--ease)}
 .tilting .co .stage img,.tilting .sc-stage,.tilting .t-stat b,.tilting h1,.tilting h2,.tilting h3,.tilting .plate,.tilting .ico{transition:translate .15s linear}
 .co .stage img{--d:12px}.sc-stage{--d:5px}.t-stat b{--d:10px}.t-hero h1,.t-cta h2{--d:7px}
 .c2{grid-column:span 2}.c3{grid-column:span 3}.c4{grid-column:span 4}.c5{grid-column:span 5}.c6{grid-column:span 6}.c7{grid-column:span 7}.c12{grid-column:span 12}
@@ -324,13 +324,58 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
 /* Morphing colour blob behind showcase logos */
 .sc-stage::before{inset:auto;left:50%;top:50%;width:min(78%,300px);aspect-ratio:1;translate:-50% -46%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 24%,transparent),color-mix(in srgb,var(--c) 8%,transparent) 65%,transparent);animation:morph 10s ease-in-out infinite,spin 24s linear infinite}
 @keyframes spin{to{rotate:360deg}}
+
+/* Parallax layers */
+.liquid b{position:absolute;inset:0;display:block;will-change:transform}
+.liquid::after{content:"";position:absolute;inset:0;background:radial-gradient(560px circle at var(--cx,50%) var(--cy,25%),color-mix(in srgb,var(--accent) 12%,transparent),transparent 60%);opacity:var(--spot,0);transition:opacity .6s}
+.co .stage img,.sc-stage,.t-stat b,.t-hero h1,.t-cta h2,.t-shared h3,.co h3,.t-flow .m .plate,.t-flow .m .ico,.f-brand .brand .plate,.sc-top .plate{translate:calc(var(--tx) * var(--d,6px)) calc(var(--ty) * var(--d,6px) + var(--py,0px))}
+.co .stage img{transition:translate .25s linear,transform .6s var(--ease)}
+[data-par="t"]{will-change:transform}
+
+/* Scroll progress */
+.progress{position:absolute;left:0;right:0;bottom:0;height:3px;transform-origin:0 50%;transform:scaleX(var(--p,0));background:linear-gradient(90deg,var(--accent),#16B3A6,var(--sun));pointer-events:none}
+
+/* Magnetic buttons */
+.btn,.links a,.menu-btn,.sc-tab{transition-property:transform,background,background-position,color,translate;transition-duration:.25s,.25s,.9s,.2s,.45s;transition-timing-function:var(--ease)}
+.btn .arr{transition:transform .25s var(--ease),translate .45s var(--ease)}
+
+/* Cursor follower */
+.cursor{position:fixed;left:0;top:0;z-index:60;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;border:1.5px solid var(--accent);pointer-events:none;display:grid;place-items:center;opacity:0;transition:width .35s var(--ease),height .35s var(--ease),margin .35s var(--ease),background .3s,border-color .3s,opacity .3s}
+.cursor span{font:700 11px var(--f);letter-spacing:.04em;color:var(--accent-ink);opacity:0;transition:opacity .2s}
+.cursor.on{opacity:1}
+.cursor.hover{width:56px;height:56px;margin:-28px 0 0 -28px;background:color-mix(in srgb,var(--accent) 14%,transparent)}
+.cursor.view{width:84px;height:84px;margin:-42px 0 0 -42px;background:var(--accent);border-color:transparent}
+.cursor.view span{opacity:1}
+.cursor.down{width:26px;height:26px;margin:-13px 0 0 -13px}
+.cursor-dot{position:fixed;left:0;top:0;z-index:61;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:var(--accent);pointer-events:none;opacity:0;transition:opacity .3s}
+.cursor-dot.on{opacity:1}
+.cursor.view+.cursor-dot{opacity:0}
+.co.clickable{cursor:pointer}
+
+/* Scroll reveal */
+.split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
+.split .w>span{display:inline-block;transform:translateY(110%);transition:transform .9s var(--ease)}
+.split.in .w>span{transform:none}
+.rv{opacity:0;translate:0 18px;transition:opacity .8s var(--ease),translate .8s var(--ease)}
+.rv.in{opacity:1;translate:0 0}
+.tile.pre{opacity:0;transform:translateY(34px) scale(.965)}
+@keyframes rise{from{opacity:0;translate:0 26px}to{opacity:1;translate:0 0}}
+.t-hero .loc{animation:rise .9s var(--ease) .05s backwards}
+.t-hero h1{animation:rise 1s var(--ease) .15s backwards}
+.t-hero .lede{animation:rise 1s var(--ease) .3s backwards}
+.t-hero .ctas{animation:rise 1s var(--ease) .45s backwards}
+#home .t-show{animation:rise 1s var(--ease) .25s backwards}
+#home .t-stat:nth-of-type(3){animation:rise .9s var(--ease) .5s backwards}
+#home .t-stat:nth-of-type(4){animation:rise .9s var(--ease) .6s backwards}
+#home .t-stat:nth-of-type(5){animation:rise .9s var(--ease) .7s backwards}
+@media (prefers-reduced-motion: reduce){.split .w>span{transform:none}.rv{opacity:1;translate:0 0}}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
 </head>
 <body>
 <!--BODY-->
-<div class="liquid" aria-hidden="true"><i></i><i></i><i></i></div>
-<div class="navbar"><div class="wrap">
+<div class="liquid" aria-hidden="true"><b data-speed=".12"><i></i></b><b data-speed=".28"><i></i></b><b data-speed=".2"><i></i></b></div>
+<div class="navbar"><span class="progress" aria-hidden="true"></span><div class="wrap">
   <nav class="nav" aria-label="Main">
     <a class="brand" href="#home"><span class="plate"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" alt=""></span>Blunar.Co</a>
     <ul class="links">
@@ -398,13 +443,13 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
 
   <section id="companies">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head" data-par="t" data-speed=".05">
         <div><div class="label">The Blunar group</div><h2>Four companies. One parent.</h2></div>
         <p>Each company has its own team and focus, and all of them share Blunar's engineering, design and marketing.</p>
       </div>
       <div class="bento">
         <article class="tile co big lift c6 r2" id="co-zeshin" style="--c:var(--zeshin)">
-          <div class="stage"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" loading="lazy" alt="Zeshin logo"></div>
+          <div class="stage"><img data-par="v" data-speed=".1" src="assets/zeshin-logo.png" width="398" height="400" decoding="async" loading="lazy" alt="Zeshin logo"></div>
           <div class="body">
             <div class="row"><h3>Zeshin</h3><span class="tag">Software &amp; AI</span></div>
             <p class="desc">Custom software, SaaS products, business websites and AI automation for schools, campuses and growing businesses.</p>
@@ -413,7 +458,7 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
           </div>
         </article>
         <article class="tile co wide lift c6" id="co-med" style="--c:var(--med)">
-          <div class="stage"><img src="assets/med-blunar-logo.png" width="420" height="268" decoding="async" loading="lazy" alt="Med Blunar logo"></div>
+          <div class="stage"><img data-par="v" data-speed=".1" src="assets/med-blunar-logo.png" width="420" height="268" decoding="async" loading="lazy" alt="Med Blunar logo"></div>
           <div class="body">
             <div class="row"><h3>Med Blunar</h3><span class="tag">Medical technology</span></div>
             <p class="desc">Medical devices and wearables, designed and prototyped by engineers in Tamil Nadu.</p>
@@ -422,7 +467,7 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
           </div>
         </article>
         <article class="tile co small lift c3" id="co-hodo" style="--c:var(--hodo)">
-          <div class="stage"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" loading="lazy" alt="HodoMate logo"></div>
+          <div class="stage"><img data-par="v" data-speed=".1" src="assets/hodomate-logo.png" width="520" height="210" decoding="async" loading="lazy" alt="HodoMate logo"></div>
           <div class="body">
             <div class="row"><h3>HodoMate</h3><span class="tag">Travel tech</span></div>
             <p class="desc">Technology for the way people discover, plan and experience travel.</p>
@@ -430,7 +475,7 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
           </div>
         </article>
         <article class="tile co small lift c3" id="co-mx" style="--c:var(--mx)">
-          <div class="stage"><img src="assets/mompx-media-logo.png" width="420" height="355" decoding="async" loading="lazy" alt="MoMPX Media logo"></div>
+          <div class="stage"><img data-par="v" data-speed=".1" src="assets/mompx-media-logo.png" width="420" height="355" decoding="async" loading="lazy" alt="MoMPX Media logo"></div>
           <div class="body">
             <div class="row"><h3>MoMPX Media</h3><span class="tag">Media</span></div>
             <p class="desc">Social media, reels, branding and ads that grow businesses and launch every Blunar product.</p>
@@ -443,7 +488,7 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
 
   <section id="ecosystem">
     <div class="wrap">
-      <div class="sec-head">
+      <div class="sec-head" data-par="t" data-speed=".05">
         <div><div class="label">The ecosystem</div><h2>Every company makes the others stronger.</h2></div>
         <p>Software, marketing and people move across the group, so each new venture starts with a team that has already shipped.</p>
       </div>
@@ -591,12 +636,88 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
       function frame(){raf=0;const r=t.getBoundingClientRect();const x=Math.min(1,Math.max(0,(ev.clientX-r.left)/r.width)),y=Math.min(1,Math.max(0,(ev.clientY-r.top)/r.height));
         const m=max(),rx=(.5-y)*m*2,ry=(x-.5)*m*2;
         t.style.transform=`perspective(1100px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(-4px) scale(1.012)`;
-        t.style.setProperty('--mx',((x-.5)*2).toFixed(3));t.style.setProperty('--my',((y-.5)*2).toFixed(3));
+        t.style.setProperty('--tx',((x-.5)*2).toFixed(3));t.style.setProperty('--ty',((y-.5)*2).toFixed(3));
         t.style.setProperty('--gx',(x*100).toFixed(1)+'%');t.style.setProperty('--gy',(y*100).toFixed(1)+'%');}
       t.addEventListener('pointerenter',()=>{if(!t.classList.contains('pre'))t.classList.add('tilting');});
       t.addEventListener('pointermove',e=>{if(t.classList.contains('pre'))return;t.classList.add('tilting');ev=e;if(!raf)raf=requestAnimationFrame(frame);});
-      t.addEventListener('pointerleave',()=>{if(raf){cancelAnimationFrame(raf);raf=0;}t.classList.remove('tilting');t.style.transform='';t.style.setProperty('--mx',0);t.style.setProperty('--my',0);});
+      t.addEventListener('pointerleave',()=>{if(raf){cancelAnimationFrame(raf);raf=0;}t.classList.remove('tilting');t.style.transform='';t.style.setProperty('--tx',0);t.style.setProperty('--ty',0);});
     });
+  }
+
+  // ---------- Parallax, progress, reveal, magnetic, cursor ----------
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const liquid=document.querySelector('.liquid');
+  const bgLayers=[...document.querySelectorAll('.liquid b')];
+  const parT=[...document.querySelectorAll('[data-par="t"]')];
+  const parV=[...document.querySelectorAll('[data-par="v"]')];
+  const prog=document.querySelector('.progress');
+  let sRaf=0;
+  function onScrollFrame(){
+    sRaf=0;
+    const sy=scrollY,vh=innerHeight,max=document.documentElement.scrollHeight-vh;
+    if(prog)prog.style.setProperty('--p',max>0?(sy/max).toFixed(4):0);
+    if(reduce)return;
+    bgLayers.forEach(b=>{b.style.transform=`translate3d(0,${(-sy*(+b.dataset.speed)).toFixed(1)}px,0)`;});
+    parT.forEach(el=>{const r=el.getBoundingClientRect();if(r.bottom<-200||r.top>vh+200)return;const off=r.top+r.height/2-vh/2;el.style.transform=`translate3d(0,${(-off*(+el.dataset.speed)).toFixed(1)}px,0)`;});
+    parV.forEach(el=>{const r=el.getBoundingClientRect();if(r.bottom<-200||r.top>vh+200)return;const off=r.top+r.height/2-vh/2;el.style.setProperty('--py',(-off*(+el.dataset.speed)).toFixed(1)+'px');});
+  }
+  addEventListener('scroll',()=>{if(!sRaf)sRaf=requestAnimationFrame(onScrollFrame);},{passive:true});
+  addEventListener('resize',onScrollFrame);onScrollFrame();
+
+  // Word-by-word heading reveal + fade for section intros
+  if('IntersectionObserver' in window && !reduce){
+    const io3=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io3.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
+    document.querySelectorAll('.sec-head h2,.t-cta h2').forEach(h=>{
+      const words=h.textContent.trim().split(/\s+/);
+      h.setAttribute('aria-label',h.textContent.trim());
+      h.innerHTML=words.map((w,i)=>`<span class="w" aria-hidden="true"><span style="transition-delay:${i*60}ms">${w}</span></span>`).join(' ');
+      h.classList.add('split');io3.observe(h);
+    });
+    document.querySelectorAll('.sec-head p,.sec-head .label').forEach(el=>{el.classList.add('rv');io3.observe(el);});
+  }
+
+  // Count-up for the stat tiles
+  document.querySelectorAll('.t-stat b').forEach((b,i)=>{
+    const m=b.textContent.match(/^(\d+)(.*)$/);if(!m||reduce)return;
+    const end=+m[1],suf=m[2],t0=performance.now()+400+i*120,dur=1400;
+    b.textContent='0'+suf;
+    (function tick(now){const k=Math.min(1,Math.max(0,(now-t0)/dur)),e=1-Math.pow(1-k,3);b.textContent=Math.round(end*e)+suf;if(k<1)requestAnimationFrame(tick);})(performance.now());
+  });
+
+  // Whole company tile opens its link
+  document.querySelectorAll('.co').forEach(c=>{const go=c.querySelector('.go');if(!go)return;c.classList.add('clickable');
+    c.addEventListener('click',e=>{if(e.target.closest('a,button'))return;go.click();});});
+
+  if(fine && !reduce){
+    // Magnetic buttons
+    document.querySelectorAll('.btn,.links a,.menu-btn,.sc-tab').forEach(el=>{
+      const arr=el.querySelector('.arr');
+      el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=e.clientX-(r.left+r.width/2),y=e.clientY-(r.top+r.height/2);
+        el.style.translate=`${(x*.28).toFixed(1)}px ${(y*.38).toFixed(1)}px`;if(arr)arr.style.translate=`${(x*.12).toFixed(1)}px ${(y*.12).toFixed(1)}px`;});
+      el.addEventListener('pointerleave',()=>{el.style.translate='';if(arr)arr.style.translate='';});
+    });
+
+    // Cursor ring + dot + background spotlight
+    const ring=document.createElement('div');ring.className='cursor';ring.setAttribute('aria-hidden','true');ring.innerHTML='<span>Open</span>';
+    const dot=document.createElement('div');dot.className='cursor-dot';dot.setAttribute('aria-hidden','true');
+    document.body.append(ring,dot);
+    let tx=innerWidth/2,ty=innerHeight/2,rx=tx,ry=ty,cRaf=0;
+    function loop(){rx+=(tx-rx)*.18;ry+=(ty-ry)*.18;ring.style.transform=`translate3d(${rx}px,${ry}px,0)`;
+      if(Math.abs(tx-rx)>.1||Math.abs(ty-ry)>.1)cRaf=requestAnimationFrame(loop);else cRaf=0;}
+    addEventListener('pointermove',e=>{
+      if(e.pointerType!=='mouse')return;
+      tx=e.clientX;ty=e.clientY;dot.style.transform=`translate3d(${tx}px,${ty}px,0)`;
+      ring.classList.add('on');dot.classList.add('on');
+      liquid.style.setProperty('--cx',tx+'px');liquid.style.setProperty('--cy',ty+'px');liquid.style.setProperty('--spot',1);
+      const t=e.target;
+      const view=t.closest('.co.clickable')&&!t.closest('a,button');
+      ring.classList.toggle('view',!!view);
+      ring.classList.toggle('hover',!view&&!!t.closest('a,button,.sc-tab'));
+      if(!cRaf)cRaf=requestAnimationFrame(loop);
+    },{passive:true});
+    document.addEventListener('pointerleave',()=>{ring.classList.remove('on');dot.classList.remove('on');liquid.style.setProperty('--spot',0);});
+    addEventListener('pointerdown',()=>ring.classList.add('down'));
+    addEventListener('pointerup',()=>ring.classList.remove('down'));
   }
 
   const navLinks=[...document.querySelectorAll('.links a')];
