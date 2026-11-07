@@ -115,28 +115,28 @@ section{padding-block:76px}
 .stats b{display:block;font:700 clamp(24px,2.6vw,32px)/1 var(--f-display);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .stats span{display:block;font-size:12.5px;color:var(--muted);margin-top:6px;line-height:1.35}
 
-.orbit{position:relative;aspect-ratio:1/1;width:100%;max-width:540px;justify-self:center;border-radius:50%}
-.orbit .ring{position:absolute;inset:14%;border-radius:50%}
-.orbit svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
-.wire{stroke:var(--faint);stroke-opacity:.45;stroke-width:.35;fill:none;stroke-dasharray:.8 1.4;animation:flow 2.2s linear infinite}
-@keyframes flow{to{stroke-dashoffset:-4.4}}
-.node{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;transition:transform .3s,opacity .3s}
-.node .plate{width:clamp(62px,15vw,92px);aspect-ratio:1;border-radius:50%;padding:20%}
-.node .lbl{font:700 12px var(--f-body);white-space:nowrap;padding:5px 12px;border-radius:999px}
-.hub .plate{width:clamp(86px,22vw,132px);padding:22%;box-shadow:10px 10px 22px var(--lo),-10px -10px 22px var(--hi)}
-.orbit.focus .node:not(.on):not(.hub){opacity:.35}
-.node.on{transform:translate(-50%,-50%) scale(1.08)}
-@media (max-width:960px){.home-grid{grid-template-columns:1fr}.orbit{max-width:440px}}
-
-/* Dock */
-.dock{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:14px;border-radius:var(--r-lg);margin-top:56px}
-.dock a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:var(--r-md);text-decoration:none;min-width:0;transition:box-shadow .25s}
-.dock a:hover,.dock a:focus-visible{box-shadow:inset 4px 4px 9px var(--lo),inset -4px -4px 9px var(--hi)}
-.dock .plate{width:46px;height:46px;border-radius:14px;padding:8px;flex:none}
-.dock b{display:block;font-size:14.5px}
-.dock small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dock span{min-width:0}
-@media (max-width:900px){.dock{grid-template-columns:1fr 1fr}}
+.group{width:100%;max-width:520px;justify-self:center;padding:22px;border-radius:36px}
+.g-head{display:flex;align-items:center;gap:16px;padding:6px 6px 6px 4px}
+.g-logo{width:68px;height:68px;border-radius:50%;padding:13px;flex:none}
+.g-head b{display:block;font:700 21px/1.2 var(--f-display);letter-spacing:-.02em}
+.g-head small{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+.g-badge{margin-left:auto;font:500 10px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-radius:999px;white-space:nowrap}
+.g-link{display:flex;justify-content:center;height:38px}
+.g-link span{position:relative;width:12px;height:100%;border-radius:999px}
+.g-link span::after{content:"";position:absolute;left:3px;width:6px;height:6px;border-radius:50%;background:var(--accent);animation:drop 2s ease-in-out infinite}
+@keyframes drop{0%{top:3px;opacity:0}25%,75%{opacity:1}100%{top:calc(100% - 9px);opacity:0}}
+.g-tray{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px;border-radius:28px}
+.tile{display:flex;flex-direction:column;gap:12px;padding:12px 12px 16px;border-radius:20px;text-decoration:none;min-width:0;transition:box-shadow .25s,opacity .25s}
+.tile .plate{width:100%;height:78px;border-radius:14px;padding:12px 14px;box-shadow:none}
+.tile .plate img{max-height:54px}
+.tile .meta{display:flex;align-items:baseline;gap:9px;padding:0 4px;min-width:0}
+.tile .meta i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none;transform:translateY(-1px)}
+.tile b{display:block;font-size:14.5px;line-height:1.25}
+.tile small{display:block;font-size:12px;color:var(--muted);padding:0 4px;margin-top:-6px}
+.tile:hover,.tile:focus-visible,.tile.on{box-shadow:inset 4px 4px 9px var(--lo),inset -4px -4px 9px var(--hi)}
+.group.focus .tile:not(.on){opacity:.5}
+@media (max-width:960px){.home-grid{grid-template-columns:1fr}}
+@media (max-width:420px){.group{padding:14px;border-radius:28px}.g-tray{gap:12px;padding:12px}.g-logo{width:56px;height:56px;padding:11px}.g-head b{font-size:18px}.g-badge{display:none}.tile .plate{height:64px;padding:10px}.tile .plate img{max-height:44px}}
 
 /* Companies */
 .cos{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}
@@ -213,7 +213,6 @@ footer{padding-block:24px calc(28px + env(safe-area-inset-bottom,0px))}
   .ctas .btn{flex:1}
   .stats div{padding:14px 10px}
   .stats span{font-size:11.5px}
-  .dock{grid-template-columns:1fr;margin-top:40px}
   .raised{box-shadow:6px 6px 14px var(--lo),-6px -6px 14px var(--hi)}
   .stage{height:150px;padding:18px}.stage img{max-height:92px}
   .co{padding:14px 14px 22px}.co h3{font-size:22px}
@@ -221,7 +220,6 @@ footer{padding-block:24px calc(28px + env(safe-area-inset-bottom,0px))}
   .flow{grid-template-columns:1fr}.groove{display:none}
   .grid4{grid-template-columns:1fr}
   .contact-card{padding:24px}
-  .node .lbl{font-size:10.5px;padding:4px 9px}
 }
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
@@ -264,26 +262,22 @@ footer{padding-block:24px calc(28px + env(safe-area-inset-bottom,0px))}
           </div>
         </div>
 
-        <div class="orbit raised" id="orbit" role="img" aria-label="Blunar.Co at the centre, connected to Zeshin, Med Blunar, HodoMate and MoMPX Media">
-          <div class="ring inset" aria-hidden="true"></div>
-          <svg viewBox="0 0 100 100" aria-hidden="true">
-            <path class="wire" d="M50 50 L22 24"/><path class="wire" d="M50 50 L78 24"/>
-            <path class="wire" d="M50 50 L78 76"/><path class="wire" d="M50 50 L22 76"/>
-          </svg>
-          <a class="node" href="#co-zeshin" data-k="zeshin" style="left:22%;top:24%"><span class="plate"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" alt=""></span><span class="lbl raised-sm">Zeshin</span></a>
-          <a class="node" href="#co-med" data-k="med" style="left:78%;top:24%"><span class="plate"><img src="assets/med-blunar-mark.png" width="240" height="172" decoding="async" alt=""></span><span class="lbl raised-sm">Med Blunar</span></a>
-          <a class="node" href="#co-hodo" data-k="hodo" style="left:78%;top:76%"><span class="plate"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" alt=""></span><span class="lbl raised-sm">HodoMate</span></a>
-          <a class="node" href="#co-mx" data-k="mx" style="left:22%;top:76%"><span class="plate"><img src="assets/mompx-media-mark.png" width="300" height="245" decoding="async" alt=""></span><span class="lbl raised-sm">MoMPX Media</span></a>
-          <div class="node hub" style="left:50%;top:50%"><span class="plate"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" loading="lazy" alt="Blunar.Co logo"></span></div>
+        <div class="group raised" id="orbit" role="group" aria-label="Blunar.Co and its four companies">
+          <div class="g-head">
+            <span class="plate g-logo"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" loading="lazy" alt="Blunar.Co logo"></span>
+            <div><b>Blunar.Co</b><small>Parent company</small></div>
+            <span class="g-badge inset">4 companies</span>
+          </div>
+          <div class="g-link" aria-hidden="true"><span class="inset"></span></div>
+          <div class="g-tray inset">
+            <a class="tile raised-sm" href="#co-zeshin" data-k="zeshin" style="--c:var(--zeshin)"><span class="plate"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" alt=""></span><span class="meta"><i></i><b>Zeshin</b></span><small>Software &amp; AI</small></a>
+            <a class="tile raised-sm" href="#co-med" data-k="med" style="--c:var(--med)"><span class="plate"><img src="assets/med-blunar-mark.png" width="240" height="172" decoding="async" alt=""></span><span class="meta"><i></i><b>Med Blunar</b></span><small>Medical technology</small></a>
+            <a class="tile raised-sm" href="#co-hodo" data-k="hodo" style="--c:var(--hodo)"><span class="plate"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" alt=""></span><span class="meta"><i></i><b>HodoMate</b></span><small>Travel technology</small></a>
+            <a class="tile raised-sm" href="#co-mx" data-k="mx" style="--c:var(--mx)"><span class="plate"><img src="assets/mompx-media-mark.png" width="300" height="245" decoding="async" alt=""></span><span class="meta"><i></i><b>MoMPX Media</b></span><small>Media &amp; marketing</small></a>
+          </div>
         </div>
       </div>
 
-      <nav class="dock raised" aria-label="Our companies">
-        <a href="#co-zeshin" data-k="zeshin"><span class="plate"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" loading="lazy" alt=""></span><span><b>Zeshin</b><small>Software &amp; AI</small></span></a>
-        <a href="#co-med" data-k="med"><span class="plate"><img src="assets/med-blunar-mark.png" width="240" height="172" decoding="async" loading="lazy" alt=""></span><span><b>Med Blunar</b><small>Medical technology</small></span></a>
-        <a href="#co-hodo" data-k="hodo"><span class="plate"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" loading="lazy" alt=""></span><span><b>HodoMate</b><small>Travel technology</small></span></a>
-        <a href="#co-mx" data-k="mx"><span class="plate"><img src="assets/mompx-media-mark.png" width="300" height="245" decoding="async" loading="lazy" alt=""></span><span><b>MoMPX Media</b><small>Media &amp; marketing</small></span></a>
-      </nav>
     </div>
   </section>
 
@@ -438,9 +432,9 @@ footer{padding-block:24px calc(28px + env(safe-area-inset-bottom,0px))}
   const orbit=document.getElementById('orbit');
   function focus(k){
     orbit.classList.toggle('focus',!!k);
-    orbit.querySelectorAll('.node[data-k]').forEach(n=>n.classList.toggle('on',n.dataset.k===k));
+    orbit.querySelectorAll('.tile[data-k]').forEach(n=>n.classList.toggle('on',n.dataset.k===k));
   }
-  document.querySelectorAll('.co[data-k], .orbit .node[data-k], .dock a[data-k]').forEach(el=>{
+  document.querySelectorAll('.co[data-k], .tile[data-k]').forEach(el=>{
     el.addEventListener('mouseenter',()=>focus(el.dataset.k));
     el.addEventListener('mouseleave',()=>focus(null));
   });
