@@ -91,10 +91,10 @@ p{margin:0}
 .plate img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
 
 /* State layer + ripple */
-.btn,.tile,.links a,.mobile-menu a,.foot ul a,.menu-btn{position:relative;overflow:hidden;isolation:isolate}
-.btn::before,.tile::before,.links a::before,.mobile-menu a::before,.menu-btn::before{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity .2s var(--ease);z-index:-1;border-radius:inherit}
-@media (hover:hover){.btn:hover::before,.tile:hover::before,.links a:hover::before,.mobile-menu a:hover::before,.menu-btn:hover::before{opacity:.08}}
-.btn:focus-visible::before,.tile:focus-visible::before{opacity:.1}
+.btn,.links a,.mobile-menu a,.foot ul a,.menu-btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::before,.links a::before,.mobile-menu a::before,.menu-btn::before{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity .2s var(--ease);z-index:-1;border-radius:inherit}
+@media (hover:hover){.btn:hover::before,.links a:hover::before,.mobile-menu a:hover::before,.menu-btn:hover::before{opacity:.08}}
+.btn:focus-visible::before{opacity:.1}
 .ripple{position:absolute;border-radius:50%;background:currentColor;opacity:.16;transform:scale(0);animation:ripple .55s var(--ease) forwards;pointer-events:none;z-index:-1}
 @keyframes ripple{to{transform:scale(1);opacity:0}}
 
@@ -141,29 +141,48 @@ section{padding-block:72px}
 .stats b{display:block;font:500 clamp(26px,2.8vw,34px)/1 var(--f-display);color:var(--primary);font-variant-numeric:tabular-nums}
 .stats span{display:block;font-size:12.5px;color:var(--on-surface-variant);margin-top:6px;line-height:1.35}
 
-.group{width:100%;max-width:520px;justify-self:center;padding:20px;border-radius:var(--r-xl);background:var(--surface-low);box-shadow:var(--e2)}
-.g-head{display:flex;align-items:center;gap:16px;padding:8px}
-.g-logo{width:64px;height:64px;border-radius:50%!important;padding:12px;flex:none}
-.g-head b{display:block;font:500 22px/1.2 var(--f-display)}
-.g-head small{display:block;color:var(--on-surface-variant);font-size:14px;margin-top:2px}
-.g-badge{margin-left:auto;font:500 12px var(--f-body);letter-spacing:.3px;color:var(--on-primary-container);background:var(--primary-container);padding:6px 12px;border-radius:var(--r-s);white-space:nowrap}
-.g-link{display:flex;justify-content:center;height:28px}
-.g-link span{position:relative;width:2px;height:100%;border-radius:2px;background:var(--outline-variant)}
-.g-link span::after{content:"";position:absolute;left:-3px;width:8px;height:8px;border-radius:50%;background:var(--primary);animation:drop 2s var(--ease) infinite}
-@keyframes drop{0%{top:0;opacity:0}25%,75%{opacity:1}100%{top:calc(100% - 8px);opacity:0}}
-.g-tray{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;border-radius:var(--r-xl);background:var(--surface-cont)}
-.tile{display:flex;flex-direction:column;gap:12px;padding:10px 10px 14px;border-radius:var(--r-l);text-decoration:none;min-width:0;background:var(--surface-low);color:var(--on-surface);transition:box-shadow .25s var(--ease),opacity .25s}
-@media (hover:hover){.tile:hover{box-shadow:var(--e2)}}
-.tile.on{box-shadow:var(--e2)}
-.tile .plate{width:100%;height:80px;padding:12px 14px}
-.tile .plate img{max-height:54px}
-.tile .meta{display:flex;align-items:baseline;gap:8px;padding:0 4px}
-.tile .meta i{width:8px;height:8px;border-radius:50%;background:var(--c);flex:none;transform:translateY(-1px)}
-.tile b{display:block;font:500 15px/1.25 var(--f-body)}
-.tile small{display:block;font-size:12.5px;color:var(--on-surface-variant);padding:0 4px;margin-top:-6px}
-.group.focus .tile:not(.on){opacity:.55}
+.showcase{--c:var(--zeshin);position:relative;width:100%;max-width:540px;justify-self:center;padding:18px;border-radius:var(--r-xl);background:var(--surface-low);box-shadow:var(--e2);overflow:hidden}
+.showcase::before{content:"";position:absolute;inset:-40% -30% auto auto;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 22%,transparent),transparent);transition:background .8s var(--ease);pointer-events:none}
+.sc-top{position:relative;display:flex;align-items:center;gap:14px;padding:4px 4px 16px}
+.sc-top .plate{width:48px;height:48px;border-radius:50%;padding:9px;flex:none}
+.sc-top b{display:block;font:500 18px/1.2 var(--f-display)}
+.sc-top small{display:block;font-size:13px;color:var(--on-surface-variant)}
+.sc-count{margin-left:auto;font:500 13px var(--f-body);color:var(--on-surface-variant);font-variant-numeric:tabular-nums}
+.sc-count b{display:inline;font:inherit;color:var(--c);transition:color .5s}
+.sc-stage{position:relative;height:230px;border-radius:22px;background:var(--media);overflow:hidden;isolation:isolate}
+.sc-stage::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 90% at 50% 100%,color-mix(in srgb,var(--c) 16%,transparent),transparent 70%);transition:background .8s var(--ease);z-index:-1}
+.sc-stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:4px;background:var(--c);transition:background .6s var(--ease)}
+.sc-slide{position:absolute;inset:0;display:grid;place-items:center;padding:34px 40px;opacity:0;visibility:hidden;transform:translateY(14px) scale(.94);transition:opacity .45s var(--ease),transform .6s var(--ease),visibility 0s .6s}
+.sc-slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .5s var(--ease) .08s,transform .7s var(--ease) .08s,visibility 0s}
+.sc-slide img{max-width:100%;max-height:150px;width:auto;height:auto;object-fit:contain;filter:drop-shadow(0 8px 18px rgba(20,30,60,.14))}
+.sc-slide.on img{animation:float 6s ease-in-out .8s infinite}
+@keyframes float{50%{transform:translateY(-6px)}}
+.sc-info{position:relative;display:grid;padding:18px 6px 6px;min-height:142px}
+.sc-text{grid-area:1/1;display:flex;flex-direction:column;gap:8px;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .35s var(--ease),transform .45s var(--ease),visibility 0s .45s}
+.sc-text.on{opacity:1;visibility:visible;transform:none;transition:opacity .5s var(--ease) .18s,transform .6s var(--ease) .18s,visibility 0s}
+.sc-text .r{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.sc-text h3{font-size:26px;line-height:1.15}
+.sc-text .chip{font:500 12px var(--f-body);color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent);padding:6px 12px;border-radius:var(--r-s)}
+.sc-text p{color:var(--on-surface-variant);font-size:15px}
+.sc-text a{align-self:flex-start;font:500 14.5px var(--f-body);color:var(--c);text-decoration:none;margin-top:2px}
+.sc-text a:hover{text-decoration:underline;text-underline-offset:4px}
+.sc-tabs{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px}
+.sc-tab{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px 6px 12px;border:0;border-radius:var(--r-l);background:transparent;color:var(--on-surface-variant);cursor:pointer;font:500 12px var(--f-body);overflow:hidden;isolation:isolate;min-width:0}
+.sc-tab::before{content:"";position:absolute;inset:0;background:currentColor;opacity:0;transition:opacity .2s;z-index:-1}
+@media (hover:hover){.sc-tab:hover::before{opacity:.06}}
+.sc-tab .plate{width:44px;height:44px;border-radius:12px;padding:7px;transition:transform .35s var(--ease),box-shadow .35s}
+.sc-tab.on{color:var(--on-surface)}
+.sc-tab.on .plate{transform:translateY(-2px);box-shadow:var(--e2)}
+.sc-tab .bar{width:100%;height:3px;border-radius:3px;background:var(--outline-variant);overflow:hidden}
+.sc-tab .bar i{display:block;height:100%;width:0;background:var(--tc)}
+.sc-tab.done .bar i{width:100%}
+.sc-tab.on .bar i{animation:fill 5s linear forwards}
+.showcase.paused .sc-tab.on .bar i{animation-play-state:paused}
+@keyframes fill{to{width:100%}}
+.sc-tab .n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 @media (max-width:960px){.home-grid{grid-template-columns:1fr}}
-@media (max-width:420px){.group{padding:12px}.g-tray{gap:10px;padding:10px}.g-logo{width:52px;height:52px;padding:10px}.g-head b{font-size:19px}.g-badge{display:none}.tile .plate{height:64px;padding:10px}.tile .plate img{max-height:44px}}
+@media (max-width:480px){.showcase{padding:12px}.sc-stage{height:180px}.sc-slide{padding:26px}.sc-slide img{max-height:118px}.sc-text h3{font-size:22px}.sc-info{min-height:150px}.sc-tab{padding:8px 2px 10px}.sc-tab .plate{width:40px;height:40px;padding:6px}.sc-tab .n{display:none}}
+@media (prefers-reduced-motion: reduce){.sc-slide,.sc-text{transition:none}}
 
 /* Companies */
 .cos{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
@@ -289,18 +308,45 @@ footer{padding-block:24px calc(24px + env(safe-area-inset-bottom,0px))}
           </div>
         </div>
 
-        <div class="group raised" id="orbit" role="group" aria-label="Blunar.Co and its four companies">
-          <div class="g-head">
-            <span class="plate g-logo"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" loading="lazy" alt="Blunar.Co logo"></span>
-            <div><b>Blunar.Co</b><small>Parent company</small></div>
-            <span class="g-badge inset">4 companies</span>
+        <div class="showcase" id="orbit" aria-roledescription="carousel" aria-label="Blunar.Co companies">
+          <div class="sc-top">
+            <span class="plate"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" loading="lazy" alt="Blunar.Co logo"></span>
+            <div><b>Blunar.Co</b><small>Parent company of</small></div>
+            <span class="sc-count"><b id="scIdx">01</b> / 04</span>
           </div>
-          <div class="g-link" aria-hidden="true"><span class="inset"></span></div>
-          <div class="g-tray inset">
-            <a class="tile raised-sm" href="#co-zeshin" data-k="zeshin" style="--c:var(--zeshin)"><span class="plate"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" alt=""></span><span class="meta"><i></i><b>Zeshin</b></span><small>Software &amp; AI</small></a>
-            <a class="tile raised-sm" href="#co-med" data-k="med" style="--c:var(--med)"><span class="plate"><img src="assets/med-blunar-mark.png" width="240" height="172" decoding="async" alt=""></span><span class="meta"><i></i><b>Med Blunar</b></span><small>Medical technology</small></a>
-            <a class="tile raised-sm" href="#co-hodo" data-k="hodo" style="--c:var(--hodo)"><span class="plate"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" alt=""></span><span class="meta"><i></i><b>HodoMate</b></span><small>Travel technology</small></a>
-            <a class="tile raised-sm" href="#co-mx" data-k="mx" style="--c:var(--mx)"><span class="plate"><img src="assets/mompx-media-mark.png" width="300" height="245" decoding="async" alt=""></span><span class="meta"><i></i><b>MoMPX Media</b></span><small>Media &amp; marketing</small></a>
+          <div class="sc-stage" aria-live="polite">
+            <div class="sc-slide on" data-i="0"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" alt="Zeshin logo"></div>
+            <div class="sc-slide" data-i="1"><img src="assets/med-blunar-logo.png" width="420" height="268" decoding="async" loading="lazy" alt="Med Blunar logo"></div>
+            <div class="sc-slide" data-i="2"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" alt="HodoMate logo"></div>
+            <div class="sc-slide" data-i="3"><img src="assets/mompx-media-logo.png" width="420" height="355" decoding="async" loading="lazy" alt="MoMPX Media logo"></div>
+          </div>
+          <div class="sc-info">
+          <div class="sc-text on" data-i="0" style="--c:var(--zeshin)">
+            <div class="r"><h3>Zeshin</h3><span class="chip">Software &amp; AI</span></div>
+            <p>Custom software, SaaS, websites and AI automation for schools, campuses and growing businesses.</p>
+            <a href="#co-zeshin">View company →</a>
+          </div>
+          <div class="sc-text" data-i="1" style="--c:var(--med)">
+            <div class="r"><h3>Med Blunar</h3><span class="chip">Medical technology</span></div>
+            <p>Medical devices and wearables, designed and prototyped in Tamil Nadu.</p>
+            <a href="#co-med">View company →</a>
+          </div>
+          <div class="sc-text" data-i="2" style="--c:var(--hodo)">
+            <div class="r"><h3>HodoMate</h3><span class="chip">Travel technology</span></div>
+            <p>Technology for the way people discover, plan and experience travel.</p>
+            <a href="#co-hodo">View company →</a>
+          </div>
+          <div class="sc-text" data-i="3" style="--c:var(--mx)">
+            <div class="r"><h3>MoMPX Media</h3><span class="chip">Media &amp; marketing</span></div>
+            <p>Social media, reels, branding and ads that grow businesses and launch every Blunar product.</p>
+            <a href="#co-mx">View company →</a>
+          </div>
+          </div>
+          <div class="sc-tabs" role="tablist" aria-label="Choose a company">
+            <button class="sc-tab on" type="button" role="tab" aria-selected="true" data-i="0" data-c="var(--zeshin)" style="--tc:var(--zeshin)"><span class="plate"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" loading="lazy" alt=""></span><span class="n">Zeshin</span><span class="bar"><i></i></span></button>
+            <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="1" data-c="var(--med)" style="--tc:var(--med)"><span class="plate"><img src="assets/med-blunar-mark.png" width="240" height="172" decoding="async" alt=""></span><span class="n">Med Blunar</span><span class="bar"><i></i></span></button>
+            <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="2" data-c="var(--hodo)" style="--tc:var(--hodo)"><span class="plate"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" loading="lazy" alt=""></span><span class="n">HodoMate</span><span class="bar"><i></i></span></button>
+            <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="3" data-c="var(--mx)" style="--tc:var(--mx)"><span class="plate"><img src="assets/mompx-media-mark.png" width="300" height="245" decoding="async" alt=""></span><span class="n">MoMPX Media</span><span class="bar"><i></i></span></button>
           </div>
         </div>
       </div>
@@ -457,14 +503,31 @@ footer{padding-block:24px calc(24px + env(safe-area-inset-bottom,0px))}
 <script>
 (function(){
   const orbit=document.getElementById('orbit');
-  function focus(k){
-    orbit.classList.toggle('focus',!!k);
-    orbit.querySelectorAll('.tile[data-k]').forEach(n=>n.classList.toggle('on',n.dataset.k===k));
+  const slides=[...orbit.querySelectorAll('.sc-slide')],texts=[...orbit.querySelectorAll('.sc-text')],tabs=[...orbit.querySelectorAll('.sc-tab')];
+  const idx=document.getElementById('scIdx'),DUR=5000,reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let cur=0,timer=null,left=DUR,started=0,paused=false;
+  function show(i){
+    cur=(i+tabs.length)%tabs.length;
+    slides.forEach((el,j)=>el.classList.toggle('on',j===cur));
+    texts.forEach((t,j)=>{t.classList.toggle('on',j===cur);t.setAttribute('aria-hidden',String(j!==cur));const a=t.querySelector('a');if(a)a.tabIndex=j===cur?0:-1;});
+    tabs.forEach((t,j)=>{t.classList.toggle('on',j===cur);t.classList.toggle('done',j<cur);t.setAttribute('aria-selected',String(j===cur));
+      const bar=t.querySelector('.bar i');bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';});
+    orbit.style.setProperty('--c',tabs[cur].dataset.c);
+    idx.textContent=String(cur+1).padStart(2,'0');
+    left=DUR;schedule();
   }
-  document.querySelectorAll('.co[data-k], .tile[data-k]').forEach(el=>{
-    el.addEventListener('mouseenter',()=>focus(el.dataset.k));
-    el.addEventListener('mouseleave',()=>focus(null));
-  });
+  function schedule(){clearTimeout(timer);if(reduce||paused)return;started=Date.now();timer=setTimeout(()=>show(cur+1),Math.max(left,300));}
+  function pause(){if(paused)return;paused=true;orbit.classList.add('paused');clearTimeout(timer);left-=Date.now()-started;}
+  function resume(){if(!paused||reduce)return;paused=false;orbit.classList.remove('paused');schedule();}
+  tabs.forEach((t,j)=>t.addEventListener('click',()=>show(j)));
+  orbit.addEventListener('mouseenter',pause);orbit.addEventListener('mouseleave',resume);
+  orbit.addEventListener('focusin',pause);orbit.addEventListener('focusout',e=>{if(!orbit.contains(e.relatedTarget))resume();});
+  orbit.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){show(cur+1);tabs[cur].focus();}if(e.key==='ArrowLeft'){show(cur-1);tabs[cur].focus();}});
+  let sx=null;orbit.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+  orbit.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)show(cur+(dx<0?1:-1));sx=null;},{passive:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)pause();else if(!orbit.matches(':hover'))resume();});
+  if(reduce){paused=true;orbit.classList.add('paused');}
+  show(0);
   const mb=document.getElementById('menuBtn'),mm=document.getElementById('mobileMenu');
   mb.addEventListener('click',()=>{const o=mm.hidden;mm.hidden=!o;mb.setAttribute('aria-expanded',String(o));});
   mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mm.hidden=true;mb.setAttribute('aria-expanded','false');}));
@@ -474,7 +537,7 @@ footer{padding-block:24px calc(24px + env(safe-area-inset-bottom,0px))}
   const secs=navLinks.map(a=>document.querySelector(a.getAttribute('href'))).filter(Boolean);
   if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){navLinks.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+e.target.id));}})},{rootMargin:'-45% 0px -50% 0px'});secs.forEach(x=>io.observe(x));}
   if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
-    document.addEventListener('pointerdown',e=>{const t=e.target.closest('.btn,.tile,.links a,.mobile-menu a,.menu-btn');if(!t)return;
+    document.addEventListener('pointerdown',e=>{const t=e.target.closest('.btn,.sc-tab,.links a,.mobile-menu a,.menu-btn');if(!t)return;
       const r=t.getBoundingClientRect(),d=Math.max(r.width,r.height)*2,s=document.createElement('span');s.className='ripple';
       s.style.cssText=`width:${d}px;height:${d}px;left:${e.clientX-r.left-d/2}px;top:${e.clientY-r.top-d/2}px`;t.appendChild(s);setTimeout(()=>s.remove(),600);});
   }
