@@ -3,8 +3,8 @@
  "short_name": "Blunar.Co",
  "start_url": "/",
  "display": "browser",
- "background_color": "#F9F9FF",
- "theme_color": "#3D5AA9",
+ "background_color": "#EBF0EE",
+ "theme_color": "#0B7A74",
  "icons": [
   {
    "src": "/assets/icon-192.png",
