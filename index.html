@@ -34,6 +34,8 @@
   --feat:#0C1716; --on-feat:#E6EFED; --feat-muted:#93A3A0; --feat-line:rgba(255,255,255,.1);
   --media:#FFFFFF; --shadow:0 18px 40px -22px rgba(12,23,22,.35); --shadow-c:rgba(12,23,22,.32);
   --zeshin:#1E2E5C; --med:#0A5FCF; --hodo:#2E7D3E; --mx:#A07410;
+  --g-accent:#0B7A74,#0D8C84,#076066; --g-sun:#F3A73B,#F7BE55,#EE8E2C; --g-feat:#0C1716,#123331,#0B1F23;
+  --blob-1:#9ED9CF; --blob-2:#F8D199; --blob-3:#BFD9F2; --blob-o:.55;
   --r:26px; --r-sm:16px;
   --f:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
@@ -46,6 +48,8 @@
   --feat:#0E4F4B; --on-feat:#E7F6F4; --feat-muted:#A6CCC7; --feat-line:rgba(255,255,255,.12);
   --media:#F3F6F5; --shadow:0 18px 40px -22px rgba(0,0,0,.8); --shadow-c:rgba(0,0,0,.75);
   --zeshin:#AFC0FF; --med:#8CC0FF; --hodo:#8FD69B; --mx:#F0C25A;
+  --g-accent:#45CFC2,#6ADBCF,#34B8AD; --g-sun:#F6B655,#F9CB72,#F09A3E; --g-feat:#0E4F4B,#136860,#0A3B3F;
+  --blob-1:#0F5C56; --blob-2:#5A3E12; --blob-3:#173A5C; --blob-o:.5;
   color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#091010; --tile:#111B1A; --tile-2:#172423; --ink:#E5EEEC; --muted:#9DADAA; --faint:#6F807D; --line:rgba(255,255,255,.07);
@@ -54,6 +58,8 @@
   --feat:#0E4F4B; --on-feat:#E7F6F4; --feat-muted:#A6CCC7; --feat-line:rgba(255,255,255,.12);
   --media:#F3F6F5; --shadow:0 18px 40px -22px rgba(0,0,0,.8); --shadow-c:rgba(0,0,0,.75);
   --zeshin:#AFC0FF; --med:#8CC0FF; --hodo:#8FD69B; --mx:#F0C25A;
+  --g-accent:#45CFC2,#6ADBCF,#34B8AD; --g-sun:#F6B655,#F9CB72,#F09A3E; --g-feat:#0E4F4B,#136860,#0A3B3F;
+  --blob-1:#0F5C56; --blob-2:#5A3E12; --blob-3:#173A5C; --blob-o:.5;
   color-scheme:dark}
 
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -276,11 +282,54 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
   .t-stat{grid-column:span 12;flex-direction:row;align-items:center;min-height:0}
   .t-stat b{font-size:40px}
 }
+
+/* Liquid background */
+.liquid{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.liquid i{position:absolute;display:block;opacity:var(--blob-o);will-change:transform,border-radius;animation:morph 18s ease-in-out infinite,drift 26s ease-in-out infinite alternate}
+.liquid i:nth-child(1){width:46vmax;height:46vmax;left:-14vmax;top:-12vmax;background:radial-gradient(closest-side,var(--blob-1),transparent)}
+.liquid i:nth-child(2){width:40vmax;height:40vmax;right:-12vmax;top:28vh;background:radial-gradient(closest-side,var(--blob-2),transparent);animation-duration:22s,30s;animation-direction:normal,alternate-reverse}
+.liquid i:nth-child(3){width:36vmax;height:36vmax;left:24vw;bottom:-18vmax;background:radial-gradient(closest-side,var(--blob-3),transparent);animation-duration:20s,34s}
+@keyframes morph{0%,100%{border-radius:42% 58% 63% 37%/41% 44% 56% 59%}33%{border-radius:63% 37% 38% 62%/55% 61% 39% 45%}66%{border-radius:35% 65% 52% 48%/62% 36% 64% 38%}}
+@keyframes drift{0%{transform:translate3d(0,0,0) rotate(0)}50%{transform:translate3d(6vw,4vh,0) rotate(40deg)}100%{transform:translate3d(-4vw,8vh,0) rotate(-20deg)}}
+@media (max-width:760px){.liquid i{animation-name:none,drift}}
+
+/* Flowing gradients on colour tiles */
+.tile.accent{background:linear-gradient(125deg,var(--g-accent),var(--g-accent));background-size:300% 300%;animation:flow 14s ease-in-out infinite alternate}
+.tile.sun{background:linear-gradient(125deg,var(--g-sun),var(--g-sun));background-size:300% 300%;animation:flow 12s ease-in-out infinite alternate}
+.tile.feat{background:linear-gradient(125deg,var(--g-feat),var(--g-feat));background-size:300% 300%;animation:flow 18s ease-in-out infinite alternate}
+@keyframes flow{0%{background-position:0% 30%}50%{background-position:100% 60%}100%{background-position:30% 100%}}
+
+/* Liquid blob inside big colour tiles */
+.t-cta::after,.t-shared::after,.f-brand::after{content:"";position:absolute;width:62%;aspect-ratio:1;right:-18%;bottom:-28%;z-index:0;pointer-events:none;background:radial-gradient(closest-side,rgba(255,255,255,.2),rgba(255,255,255,.04) 70%,transparent);animation:morph 12s ease-in-out infinite,bob 9s ease-in-out infinite alternate}
+.f-brand::after{width:80%;right:-35%;bottom:-45%}
+@keyframes bob{to{transform:translate(-8%,-10%) rotate(30deg)}}
+.t-cta>:not(.glare),.t-shared>:not(.glare),.f-brand>:not(.glare),.t-stat>:not(.glare){position:relative;z-index:1}
+
+/* Liquid waves in stat tiles */
+.t-stat::before,.t-stat::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;pointer-events:none;z-index:0;background:currentColor;opacity:.08;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M0 20 C25 6 50 6 75 20 S125 34 150 20 S200 6 200 20 V40 H0Z'/%3E%3C/svg%3E") repeat-x 0 0/200px 100%;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 40' preserveAspectRatio='none'%3E%3Cpath d='M0 20 C25 6 50 6 75 20 S125 34 150 20 S200 6 200 20 V40 H0Z'/%3E%3C/svg%3E") repeat-x 0 0/200px 100%;
+  animation:wave 7s linear infinite}
+.t-stat::after{height:36%;opacity:.12;-webkit-mask-size:160px 100%;mask-size:160px 100%;animation-duration:4.5s;animation-direction:reverse}
+@keyframes wave{to{-webkit-mask-position:200px 0;mask-position:200px 0}}
+
+/* Flowing gradient headline */
+.t-hero h1 em{background:linear-gradient(100deg,var(--accent) 0%,#16B3A6 30%,var(--sun) 50%,#16B3A6 70%,var(--accent) 100%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:textflow 9s linear infinite}
+@keyframes textflow{to{background-position:-250% 0}}
+
+/* Liquid sheen on dark buttons */
+.btn-ink{background:linear-gradient(110deg,var(--ink) 0%,var(--ink) 42%,var(--accent) 50%,var(--ink) 58%,var(--ink) 100%);background-size:260% 100%;background-position:100% 0;transition:background-position .9s var(--ease),transform .25s var(--ease)}
+@media (hover:hover){.btn-ink:hover{background-position:0% 0}}
+
+/* Morphing colour blob behind showcase logos */
+.sc-stage::before{inset:auto;left:50%;top:50%;width:min(78%,300px);aspect-ratio:1;translate:-50% -46%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 24%,transparent),color-mix(in srgb,var(--c) 8%,transparent) 65%,transparent);animation:morph 10s ease-in-out infinite,spin 24s linear infinite}
+@keyframes spin{to{rotate:360deg}}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
 </head>
 <body>
 <!--BODY-->
+<div class="liquid" aria-hidden="true"><i></i><i></i><i></i></div>
 <div class="navbar"><div class="wrap">
   <nav class="nav" aria-label="Main">
     <a class="brand" href="#home"><span class="plate"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" alt=""></span>Blunar.Co</a>
