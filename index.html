@@ -364,11 +364,65 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
 .t-hero h1{animation:rise 1s var(--ease) .15s backwards}
 .t-hero .lede{animation:rise 1s var(--ease) .3s backwards}
 .t-hero .ctas{animation:rise 1s var(--ease) .45s backwards}
-#home .t-show{animation:rise 1s var(--ease) .25s backwards}
-#home .t-stat:nth-of-type(3){animation:rise .9s var(--ease) .5s backwards}
-#home .t-stat:nth-of-type(4){animation:rise .9s var(--ease) .6s backwards}
-#home .t-stat:nth-of-type(5){animation:rise .9s var(--ease) .7s backwards}
 @media (prefers-reduced-motion: reduce){.split .w>span{transform:none}.rv{opacity:1;translate:0 0}}
+
+/* Full-screen home */
+.home{min-height:calc(100svh - 76px - env(safe-area-inset-top,0px));display:flex;flex-direction:column;justify-content:center;gap:36px;padding-block:20px 28px}
+.home-in{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(28px,4vw,64px);align-items:center;width:100%}
+.home .t-hero{--tx:0;--ty:0;padding:0;display:block}
+.home .t-hero h1{font-size:clamp(44px,min(7.2vw,11vh),112px);line-height:.95;margin-top:clamp(16px,2.6vh,26px)}
+.home .t-hero .lede{font-size:clamp(16.5px,1.35vw,19px);margin-top:24px;max-width:50ch}
+.home .ctas{margin-top:34px}
+.home .t-show{width:100%;max-width:500px;justify-self:end}
+.home-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;width:100%}
+.home-stats{display:grid;grid-template-columns:repeat(3,minmax(0,210px));gap:12px;flex:1}
+.home-stats .t-stat{min-height:112px;padding:18px 20px;gap:12px}
+.home-stats .t-stat b{font-size:clamp(34px,3.4vw,48px)}
+.home-stats .t-stat span{font-size:13px}
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:8px;font:500 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);text-decoration:none;padding:6px}
+.scroll-cue .mouse{width:24px;height:38px;border:2px solid currentColor;border-radius:14px;display:flex;justify-content:center;padding-top:6px}
+.scroll-cue .mouse i{width:3px;height:8px;border-radius:2px;background:var(--accent);animation:wheel 1.8s var(--ease) infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
+.home .loc{animation:rise .9s var(--ease) .05s backwards}
+.home h1{animation:rise 1s var(--ease) .15s backwards}
+.home .lede{animation:rise 1s var(--ease) .3s backwards}
+.home .ctas{animation:rise 1s var(--ease) .45s backwards}
+.home .t-show{animation:rise 1s var(--ease) .3s backwards}
+.home-stats .t-stat:nth-child(1){animation:rise .9s var(--ease) .55s backwards}
+.home-stats .t-stat:nth-child(2){animation:rise .9s var(--ease) .65s backwards}
+.home-stats .t-stat:nth-child(3){animation:rise .9s var(--ease) .75s backwards}
+.scroll-cue{animation:rise .9s var(--ease) .9s backwards}
+
+/* Showcase logo stage: fixed size so every logo sits centred */
+.home .sc-stage{flex:none;height:250px}
+.home .sc-slide{padding:0}
+.home .sc-slide img{width:auto;height:auto;max-width:72%;max-height:150px}
+.home .sc-stage::before{width:240px}
+
+@media (min-width:1001px) and (max-height:860px){
+  .home{gap:22px;padding-block:10px 18px}
+  .home .t-hero .lede{margin-top:16px;font-size:16.5px}
+  .home .ctas{margin-top:22px}
+  .home .sc-stage{height:clamp(150px,24vh,250px)}.home .sc-slide img{max-height:clamp(96px,15vh,150px)}
+  .home .sc-info{min-height:118px;padding-top:12px}
+  .home-stats .t-stat{min-height:84px;padding:14px 18px}
+  .home-stats .t-stat b{font-size:clamp(30px,5vh,44px)}
+}
+@media (max-width:1000px){
+  .home{min-height:0;padding-block:16px 24px}
+  .home-in{grid-template-columns:1fr}
+  .home .t-show{justify-self:stretch;max-width:none}
+  .home-stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:760px){
+  .home .sc-stage{height:190px}.home .sc-slide img{max-height:112px}
+  .home .t-show{padding:12px}
+  .home-foot{flex-direction:column;align-items:stretch}
+  .scroll-cue{display:none}
+  .home-stats .t-stat{min-height:96px;padding:14px}
+  .home-stats .t-stat span{font-size:11.5px}
+}
+@media (max-width:420px){.home-stats{grid-template-columns:1fr}.home-stats .t-stat{flex-direction:row;align-items:center;min-height:0}}
 </style>
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}</style>
 </head>
@@ -393,51 +447,50 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
 </div></div>
 
 <main>
-  <section id="home" style="padding-top:12px">
-    <div class="wrap">
-      <div class="bento">
-        <div class="tile t-hero c7 r2">
-          <div>
-            <span class="loc"><i></i>Ramanathapuram, Tamil Nadu</span>
-            <h1>Built for Results, <em>Not Promises.</em></h1>
-            <p class="lede">Blunar.Co is the parent company of Zeshin, Med Blunar, HodoMate and MoMPX Media. We build software, medical technology, travel technology and digital marketing from Ramanathapuram, Tamil Nadu.</p>
-          </div>
-          <div class="ctas">
-            <a class="btn btn-ink" href="#companies">Explore our companies <span class="arr">→</span></a>
-            <a class="btn" href="#contact">Work with us</a>
-          </div>
+  <section id="home" class="home">
+    <div class="wrap home-in">
+      <div class="t-hero">
+        <span class="loc"><i></i>Ramanathapuram, Tamil Nadu</span>
+        <h1>Built for Results, <em>Not Promises.</em></h1>
+        <p class="lede">Blunar.Co is the parent company of Zeshin, Med Blunar, HodoMate and MoMPX Media. We build software, medical technology, travel technology and digital marketing from Ramanathapuram, Tamil Nadu.</p>
+        <div class="ctas">
+          <a class="btn btn-ink" href="#companies">Explore our companies <span class="arr">→</span></a>
+          <a class="btn" href="#contact">Work with us</a>
         </div>
-
-        <div class="tile t-show c5 r3" id="orbit" aria-roledescription="carousel" aria-label="Blunar.Co companies">
-          <div class="sc-top">
-            <span class="plate"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" loading="lazy" alt="Blunar.Co logo"></span>
-            <div><b>Blunar.Co</b><small>Parent company of</small></div>
-            <span class="sc-count"><b id="scIdx">01</b> / 04</span>
-          </div>
-          <div class="sc-stage" aria-live="polite">
-            <div class="sc-slide on" data-i="0"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" alt="Zeshin logo"></div>
-            <div class="sc-slide" data-i="1"><img src="assets/med-blunar-logo.png" width="420" height="268" decoding="async" loading="lazy" alt="Med Blunar logo"></div>
-            <div class="sc-slide" data-i="2"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" alt="HodoMate logo"></div>
-            <div class="sc-slide" data-i="3"><img src="assets/mompx-media-logo.png" width="420" height="355" decoding="async" loading="lazy" alt="MoMPX Media logo"></div>
-          </div>
-          <div class="sc-info">
-            <div class="sc-text on" data-i="0" style="--c:var(--zeshin)"><div class="r"><h3>Zeshin</h3><span class="chip">Software &amp; AI</span></div><p>Custom software, SaaS, websites and AI automation for schools, campuses and growing businesses.</p><a href="#co-zeshin">View company →</a></div>
-            <div class="sc-text" data-i="1" style="--c:var(--med)"><div class="r"><h3>Med Blunar</h3><span class="chip">Medical technology</span></div><p>Medical devices and wearables, designed and prototyped in Tamil Nadu.</p><a href="#co-med">View company →</a></div>
-            <div class="sc-text" data-i="2" style="--c:var(--hodo)"><div class="r"><h3>HodoMate</h3><span class="chip">Travel technology</span></div><p>Technology for the way people discover, plan and experience travel.</p><a href="#co-hodo">View company →</a></div>
-            <div class="sc-text" data-i="3" style="--c:var(--mx)"><div class="r"><h3>MoMPX Media</h3><span class="chip">Media &amp; marketing</span></div><p>Social media, reels, branding and ads that grow businesses and launch every Blunar product.</p><a href="#co-mx">View company →</a></div>
-          </div>
-          <div class="sc-tabs" role="tablist" aria-label="Choose a company">
-            <button class="sc-tab on" type="button" role="tab" aria-selected="true" data-i="0" data-c="var(--zeshin)" style="--tc:var(--zeshin)"><span class="plate"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" loading="lazy" alt=""></span><span class="n">Zeshin</span><span class="bar"><i></i></span></button>
-            <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="1" data-c="var(--med)" style="--tc:var(--med)"><span class="plate"><img src="assets/med-blunar-mark.png" width="240" height="172" decoding="async" alt=""></span><span class="n">Med Blunar</span><span class="bar"><i></i></span></button>
-            <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="2" data-c="var(--hodo)" style="--tc:var(--hodo)"><span class="plate"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" loading="lazy" alt=""></span><span class="n">HodoMate</span><span class="bar"><i></i></span></button>
-            <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="3" data-c="var(--mx)" style="--tc:var(--mx)"><span class="plate"><img src="assets/mompx-media-mark.png" width="300" height="245" decoding="async" alt=""></span><span class="n">MoMPX Media</span><span class="bar"><i></i></span></button>
-          </div>
-        </div>
-
-        <div class="tile t-stat feat c2"><b>4</b><span>Companies in the group</span></div>
-        <div class="tile t-stat accent c2"><b>15+</b><span>Companies we've built for</span></div>
-        <div class="tile t-stat sun c3"><b>20+</b><span>Businesses we've marketed</span></div>
       </div>
+          <div class="tile t-show" id="orbit" aria-roledescription="carousel" aria-label="Blunar.Co companies">
+            <div class="sc-top">
+              <span class="plate"><img src="assets/blunar-logo.png" width="172" height="179" decoding="async" loading="lazy" alt="Blunar.Co logo"></span>
+              <div><b>Blunar.Co</b><small>Parent company of</small></div>
+              <span class="sc-count"><b id="scIdx">01</b> / 04</span>
+            </div>
+            <div class="sc-stage" aria-live="polite">
+              <div class="sc-slide on" data-i="0"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" alt="Zeshin logo"></div>
+              <div class="sc-slide" data-i="1"><img src="assets/med-blunar-logo.png" width="420" height="268" decoding="async" loading="lazy" alt="Med Blunar logo"></div>
+              <div class="sc-slide" data-i="2"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" alt="HodoMate logo"></div>
+              <div class="sc-slide" data-i="3"><img src="assets/mompx-media-logo.png" width="420" height="355" decoding="async" loading="lazy" alt="MoMPX Media logo"></div>
+            </div>
+            <div class="sc-info">
+              <div class="sc-text on" data-i="0" style="--c:var(--zeshin)"><div class="r"><h3>Zeshin</h3><span class="chip">Software &amp; AI</span></div><p>Custom software, SaaS, websites and AI automation for schools, campuses and growing businesses.</p><a href="#co-zeshin">View company →</a></div>
+              <div class="sc-text" data-i="1" style="--c:var(--med)"><div class="r"><h3>Med Blunar</h3><span class="chip">Medical technology</span></div><p>Medical devices and wearables, designed and prototyped in Tamil Nadu.</p><a href="#co-med">View company →</a></div>
+              <div class="sc-text" data-i="2" style="--c:var(--hodo)"><div class="r"><h3>HodoMate</h3><span class="chip">Travel technology</span></div><p>Technology for the way people discover, plan and experience travel.</p><a href="#co-hodo">View company →</a></div>
+              <div class="sc-text" data-i="3" style="--c:var(--mx)"><div class="r"><h3>MoMPX Media</h3><span class="chip">Media &amp; marketing</span></div><p>Social media, reels, branding and ads that grow businesses and launch every Blunar product.</p><a href="#co-mx">View company →</a></div>
+            </div>
+            <div class="sc-tabs" role="tablist" aria-label="Choose a company">
+              <button class="sc-tab on" type="button" role="tab" aria-selected="true" data-i="0" data-c="var(--zeshin)" style="--tc:var(--zeshin)"><span class="plate"><img src="assets/zeshin-logo.png" width="398" height="400" decoding="async" loading="lazy" alt=""></span><span class="n">Zeshin</span><span class="bar"><i></i></span></button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="1" data-c="var(--med)" style="--tc:var(--med)"><span class="plate"><img src="assets/med-blunar-mark.png" width="240" height="172" decoding="async" alt=""></span><span class="n">Med Blunar</span><span class="bar"><i></i></span></button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="2" data-c="var(--hodo)" style="--tc:var(--hodo)"><span class="plate"><img src="assets/hodomate-logo.png" width="520" height="210" decoding="async" loading="lazy" alt=""></span><span class="n">HodoMate</span><span class="bar"><i></i></span></button>
+              <button class="sc-tab" type="button" role="tab" aria-selected="false" data-i="3" data-c="var(--mx)" style="--tc:var(--mx)"><span class="plate"><img src="assets/mompx-media-mark.png" width="300" height="245" decoding="async" alt=""></span><span class="n">MoMPX Media</span><span class="bar"><i></i></span></button>
+            </div>
+          </div>
+    </div>
+    <div class="wrap home-foot">
+      <div class="home-stats">
+        <div class="tile t-stat feat"><b>4</b><span>Companies in the group</span></div>
+        <div class="tile t-stat accent"><b>15+</b><span>Companies we've built for</span></div>
+        <div class="tile t-stat sun"><b>20+</b><span>Businesses we've marketed</span></div>
+      </div>
+      <a class="scroll-cue" href="#companies" aria-label="Scroll to our companies"><span class="mouse"><i></i></span>Scroll</a>
     </div>
   </section>
 
@@ -628,7 +681,7 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
 
   // 3D tilt on hover (mouse devices only)
   if(matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
-    document.querySelectorAll('.bento > .tile:not(.f-bottom)').forEach(t=>{
+    document.querySelectorAll('.bento > .tile:not(.f-bottom), .home .tile').forEach(t=>{
       const g=document.createElement('span');g.className='glare';g.setAttribute('aria-hidden','true');t.appendChild(g);
       t.classList.add('tilt');
       let raf=0,ev=null;
@@ -718,6 +771,12 @@ footer .mail{display:inline-block;margin-top:10px;font:700 14.5px var(--f);color
     document.addEventListener('pointerleave',()=>{ring.classList.remove('on');dot.classList.remove('on');liquid.style.setProperty('--spot',0);});
     addEventListener('pointerdown',()=>ring.classList.add('down'));
     addEventListener('pointerup',()=>ring.classList.remove('down'));
+  }
+
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches && !reduce){
+    const home=document.querySelector('.home'),copy=home.querySelector('.t-hero');
+    home.addEventListener('pointermove',e=>{const x=e.clientX/innerWidth-.5,y=e.clientY/innerHeight-.5;copy.style.setProperty('--tx',(x*-1.2).toFixed(3));copy.style.setProperty('--ty',(y*-1.2).toFixed(3));});
+    home.addEventListener('pointerleave',()=>{copy.style.setProperty('--tx',0);copy.style.setProperty('--ty',0);});
   }
 
   const navLinks=[...document.querySelectorAll('.links a')];
